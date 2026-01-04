@@ -1,0 +1,60 @@
+<div class="container mt-2">
+  <ng-container *ngIf="customers | async as listCustomers; else failureOrLoading">
+    <div class="card">
+      <div class="card-header bg-primary text-light bg-dark">Customers</div>
+
+      <ng-container *ngIf="searchFormGroup">
+        <form [formGroup] = "searchFormGroup" (ngSubmit) = "handleSearchCustomers()">
+          <div class="input-group p-3">
+            <label class="input-group-text bg-dark text-light">Keyword</label>
+            <input type="text" formControlName="keyword" class="form-control">
+            <button class="btn bg-primary-subtle" type="submit">
+              <i class="bi bi-search shadow-xxl"></i>
+            </button>
+          </div>
+        </form>
+      </ng-container>
+
+      <div class="card-body">
+        <table class="table">
+          <thead>
+
+          <tr>
+            <th class="text-primary">ID</th>
+            <th class="text-primary">Name</th>
+            <th class="text-primary">Email</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of customers | async">
+            <td>{{c.id}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.email}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <ng-template #failureOrLoading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-bg-danger">
+        {{ errorMessage }}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="progress" style="height: 25px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+             role="progressbar"
+             style="width: 100%">
+          Loading ...
+        </div>
+      </div>
+    </ng-template>
+
+
+  </ng-template>
+
+</div>
