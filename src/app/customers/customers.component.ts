@@ -3,6 +3,7 @@ import {CustomerService} from "../services/customer.service";
 import {catchError, map, Observable, throwError} from "rxjs";
 import {Customer} from "../models/customer.model";
 import {Form, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-customers',
@@ -39,19 +40,45 @@ export class CustomersComponent implements OnInit {
     )
   }
 
-  handleDeleteCustomer(c : Customer) {
-    this.customerService.deleteCustomer(c.id).subscribe({
-      next : (resp) =>{
-        this.customers = this.customers.pipe(
-          map( (data) => {
-            let index = data.indexOf(c);
-            data.slice(index, 1);
-            return data;
-          })
-        );
-      }, error: err => {
-        console.log(err);
+  // handleDeleteCustomer(c : Customer) {
+  //   let confirmation = confirm("You are going to delete a customer!\n Are you sure?");
+  //   if (!confirmation) return;
+  //   this.customerService.deleteCustomer(c.id).subscribe({
+  //     next : (resp) =>{
+  //       this.customers = this.customers.pipe(
+  //         map( (data) => {
+  //           let index = data.indexOf(c);
+  //           data.slice(index, 1);
+  //           return data;
+  //         })
+  //       );
+  //     }, error: err => {
+  //       console.log(err);
+  //     }
+  // });
+  // }
+  handleDeleteCustomer(c: Customer) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are going to delete a customer!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.customerService.deleteCustomer(c.id).subscribe({
+          next: () => {
+            this.customers = this.customers.pipe(
+              map(data => data.filter(customer => customer !== c))
+            );
+            Swal.fire('Deleted!', 'Customer has been deleted.', 'success');
+          },
+          error: err => console.log(err)
+        });
       }
-  });
+    });
   }
+
 }

@@ -1,1 +1,164 @@
-<p>accounts works!</p>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-light bg-dark fw-bold">Accounts</div>
+        <form [formGroup]="accountFormGroup" (ngSubmit)="handleSearchAccount()">
+          <div class="input-group p-3">
+            <label class="input-group-text bg-dark text-light">Account Id</label>
+            <input type="text" formControlName="accountId" class="form-control">
+            <button class="btn bg-primary-subtle">
+              <i class="bi bi-search shadow-xxl"></i>
+            </button>
+          </div>
+        </form>
+
+        <ng-template #errorTemplate>
+          <div *ngIf="errorMessage"
+               class="text-center text-danger mt-3 fw-semibold">
+            <i class="bi bi-x-circle-fill me-1"></i>
+            {{ errorMessage }}
+          </div>
+        </ng-template>
+        <ng-container *ngIf="accountObservable | async as accountDetails; else errorTemplate">
+
+          <div class="card shadow-sm border-primary mb-3 p-3">
+            <div class="d-flex gap-2">
+
+              <!-- Account ID -->
+              <div class="border p-2 rounded flex-fill text-center">
+                <span class="text-primary fw-semibold d-block">Account ID</span>
+                <span class="fw-semibold d-block">{{ accountDetails.accountId }}</span>
+              </div>
+
+              <!-- Balance -->
+              <div class="border p-2 rounded flex-fill text-center">
+                <span class="text-primary fw-semibold d-block">Balance</span>
+                <span class="fw-bold text-success fs-5 d-block">{{ accountDetails.balance | number : '1.2-2' }}</span>
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-light fw-semibold text-primary">
+              Account Operations
+            </div>
+
+            <div class="table-responsive p-xl-1">
+              <table class="table table-hover align-middle">
+                <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let op of accountDetails.accountOperationDTO">
+                  <td class="fw-bold" style="color: red">{{ op.id }}</td>
+                  <td class="fw-bold ">{{ op.operationDate | date : 'dd-MM-yyy | HH:mm:ss'}}</td>
+                  <td>
+              <span
+                class="badge"
+                [ngClass]="op.type === 'DEBIT' ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success'">
+                {{ op.type }}
+              </span>
+                  </td>
+                  <td class="fw-semibold">
+                    {{ op.amount | number : '1.2-2' }}
+                  </td>
+                  <td class="text-muted">{{ op.description }}</td>
+                </tr>
+                </tbody>
+
+              </table>
+              <ul class="nav nav-pills justify-content-center gap-2 mb-3">
+
+                <li
+                  *ngFor="let item of [].constructor(accountDetails.totalPages); let page = index"
+                  class="nav-item"
+                >
+                  <button
+                    class="nav-link px-3 py-1 border fw-bold"
+                    [ngStyle]="{'background-color': page === currentPage ? 'peachpuff' : 'white','color': page === currentPage ? 'black' : 'peachpuff','border-color': 'peachpuff'}"
+                    (click)="gotoPage(page)"
+                  >
+                    {{ page + 1 }}
+                  </button>
+                </li>
+
+              </ul>
+
+            </div>
+          </div>
+
+        </ng-container>
+
+      </div>
+    </div>
+    <div class="col col-md-6" *ngIf="accountObservable">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-light fw-bold">
+          Account Operation
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="operationsFormGroup" (ngSubmit)="handleAccountOperations()">
+
+            <!-- Operation Type -->
+            <div class="mb-4 d-flex justify-content-between">
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" formControlName="operationType" value="DEBIT">
+                <label class="form-check-label text-danger fw-semibold">Debit</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" formControlName="operationType" value="CREDIT">
+                <label class="form-check-label text-success fw-semibold">Credit</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" formControlName="operationType" value="TRANSFER">
+                <label class="form-check-label text-primary-emphasis fw-semibold">Transfer</label>
+              </div>
+            </div>
+
+            <!-- Input Group -->
+            <div class="d-flex gap-3">
+              <div class="flex-fill" *ngIf="operationsFormGroup.value.operationType == 'TRANSFER'">
+                <label class="form-label text-primary-emphasis fw-semibold">Account Destination</label>
+                <input class="form-control border border-peachpuff shadow-sm" type="text" formControlName="accountDestination">
+              </div>
+              <div class="flex-fill">
+                <label class="form-label text-primary-emphasis fw-semibold">Amount</label>
+                <input class="form-control border border-peachpuff shadow-sm" type="text" formControlName="amount">
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4 mt-3">
+              <label class="form-label text-primary-emphasis fw-semibold">Description</label>
+              <input class="form-control border border-peachpuff shadow-sm" type="text" formControlName="description">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+              <button class="btn fw-bold px-5"
+                      [ngStyle]="{'background-color':'peachpuff','color':'black'}"
+                      type="submit">
+                Confirm
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

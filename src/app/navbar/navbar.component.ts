@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-navbar',
@@ -12,4 +13,5 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  protected readonly style = style;
 }
