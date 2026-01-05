@@ -4,6 +4,7 @@ import {catchError, map, Observable, throwError} from "rxjs";
 import {Customer} from "../models/customer.model";
 import {Form, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-customers',
@@ -16,7 +17,7 @@ export class CustomersComponent implements OnInit {
   errorMessage! : String;
   searchFormGroup : FormGroup | undefined;
 
-  constructor(private customerService: CustomerService, private fb : FormBuilder) { }
+  constructor(private customerService: CustomerService, private fb : FormBuilder, private route : Router) { }
 
   ngOnInit(): void {
     this.searchFormGroup = this.fb.group({
@@ -79,6 +80,10 @@ export class CustomersComponent implements OnInit {
         });
       }
     });
+  }
+
+  handleCustomerAccounts(c : Customer){
+    this.route.navigateByUrl("/customer-accounts/"+c.id, {state : c});
   }
 
 }
