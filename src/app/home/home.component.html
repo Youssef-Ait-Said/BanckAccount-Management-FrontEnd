@@ -10,7 +10,7 @@
           Manage your bank accounts with ease using our modern and secure platform.
         </p>
         <div class="d-flex gap-3">
-          <button class="btn btn-lg fw-bold" style="background-color: salmon; color: white" routerLink="/admin/new-customer">
+          <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-lg fw-bold" style="background-color: salmon; color: white" routerLink="/admin/new-customer">
             <i class="bi bi-person-plus me-2"></i>New Customer
           </button>
           <button class="btn btn-lg btn-outline-secondary fw-bold" routerLink="/admin/accounts">

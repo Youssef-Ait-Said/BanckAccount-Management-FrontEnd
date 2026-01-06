@@ -21,19 +21,77 @@
             Customers
           </a>
           <ul class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: peachpuff">
-            <li><a class="dropdown-item fs-6 fw-bold " routerLink="/admin/new-customer" style="color: white ; background-color: peachpuff">New customer</a></li>
+            <li *ngIf="authService.roles.includes('ADMIN')"><a class="dropdown-item fs-6 fw-bold " routerLink="/admin/new-customer" style="color: white ; background-color: peachpuff">New customer</a></li>
             <li><a class="dropdown-item  fw-bold fs-6" routerLink="/admin/customers" style="color: white ; background-color: peachpuff">Search customers</a></li>
           </ul>
         </li>
       </ul>
-      <ul class="nav">
-        <li>
-          [Username]
-        </li>
-        <li>
+<!--      <ul class="nav" *ngIf="authService.isAuthenticated == true">-->
+<!--        <li class="nav-item">-->
+<!--          <div class="nav-link active">-->
+<!--            {{this.authService.username}}-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <button (click)="handleLogout()" class="btn btn-success"></button>-->
+<!--        </li>-->
+<!--      </ul>-->
+      <ul class="navbar-nav ms-auto" *ngIf="authService.isAuthenticated">
 
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle d-flex align-items-center gap-2 fw-bold"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="color: ghostwhite;"
+          >
+
+            <!-- Avatar -->
+            <div
+              class="rounded-circle d-flex justify-content-center align-items-center"
+              style="
+          width: 36px;
+          height: 36px;
+          background-color: peachpuff;
+          color: darkslateblue;
+        "
+            >
+              <i class="bi bi-person-fill"></i>
+            </div>
+
+            <!-- Username -->
+            <span>{{ authService.username }}</span>
+          </a>
+
+          <!-- Dropdown -->
+          <ul
+            class="dropdown-menu dropdown-menu-end shadow"
+            style="background-color: peachpuff;"
+          >
+            <li>
+        <span class="dropdown-item-text fw-bold text-dark">
+          👋 Welcome
+        </span>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+              <button
+                class="dropdown-item d-flex align-items-center gap-2 fw-bold text-danger"
+                (click)="handleLogout()"
+              >
+                <i class="bi bi-box-arrow-right" ></i>
+                Logout
+              </button>
+            </li>
+          </ul>
         </li>
+
       </ul>
+
     </div>
   </div>
 </nav>
