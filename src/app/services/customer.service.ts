@@ -27,4 +27,12 @@ export class CustomerService {
     public deleteCustomer(id : number){
       return this.http.delete(environment.backendHost+"/customers/"+id);
     }
+
+  // Dans customer.service.ts
+
+
+  public getCustomerAccounts(customerId: number): Observable<any> {
+    return this.http.get(`${environment.backendHost}/customers/${customerId}/accounts`);
+  }
+
 }

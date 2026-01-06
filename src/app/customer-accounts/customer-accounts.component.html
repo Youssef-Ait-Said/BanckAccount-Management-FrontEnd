@@ -1,3 +1,62 @@
-<div class="container">
-   {{customer | json}}
+<!--<div class="container">-->
+<!--   {{customer | json}}-->
+<!--</div>-->
+
+<div class="container mt-4">
+  <!-- Customer Info Card -->
+  <div class="card shadow-sm mb-4" style="border: 2px solid peachpuff">
+    <div class="card-header" style="background-color: peachpuff">
+      <h4 class="mb-0 fw-bold" style="color: darkslateblue">
+        <i class="bi bi-person-circle me-2" style="color: salmon"></i>
+        Customer Information
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <p class="mb-2">
+            <strong style="color: darkslateblue">ID:</strong>
+            <span class="ms-2">{{ customer?.id }}</span>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <p class="mb-2">
+            <strong style="color: darkslateblue">Name:</strong>
+            <span class="ms-2">{{ customer?.name }}</span>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <p class="mb-2">
+            <strong style="color: darkslateblue">Email:</strong>
+            <span class="ms-2">{{ customer?.email }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accounts Section -->
+  <div class="card shadow-sm" style="border: 2px solid peachpuff">
+    <div class="card-header d-flex justify-content-between align-items-center" style="background-color: peachpuff">
+      <h4 class="mb-0 fw-bold" style="color: darkslateblue">
+        <i class="bi bi-bank2 me-2" style="color: salmon"></i>
+        Accounts
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="text-center py-5">
+        <i class="bi bi-inbox fs-1 mb-3" style="color: lightgray"></i>
+        <h5 style="color: darkslateblue">Account information will be displayed here</h5>
+        <p class="text-muted">Integrate with your backend to load account data</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="mt-4">
+    <button class="btn fw-bold" style="background-color: peachpuff; color: darkslateblue" routerLink="/customers">
+      <i class="bi bi-arrow-left me-2"></i>Back to Customers
+    </button>
+  </div>
 </div>
+

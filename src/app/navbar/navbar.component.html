@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg" style="background-color: peachpuff">
+<nav class="navbar navbar-expand-lg" style="background-color: lightsalmon">
   <div class="container-fluid justify-content-evenly r-in;ine">
-    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/admin">
       <i class="bi bi-bank fs-3 me-2" style="color: salmon"></i>
       <div class="fw-bold fs-4" style="color: darkslateblue">Digital Bank</div>
     </a>
@@ -11,25 +11,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active fs-6 fw-bold" style="color: ghostwhite" aria-current="page" routerLink="/">Home</a>
+          <a class="nav-link active fs-6 fw-bold" style="color: ghostwhite" aria-current="page" routerLink="/admin">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6 fw-bold" routerLink="/accounts" style="color: ghostwhite">Accounts</a>
+          <a class="nav-link fs-6 fw-bold" routerLink="/admin/accounts" style="color: ghostwhite">Accounts</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold fs-6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: ghostwhite">
+          <a class="nav-link dropdown-toggle fw-bold fs-6" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: ghostwhite">
             Customers
           </a>
           <ul class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: peachpuff">
-            <li><a class="dropdown-item fs-6 fw-bold " routerLink="/new-customer" style="color: white ; background-color: peachpuff">New customer</a></li>
-            <li><a class="dropdown-item  fw-bold fs-6" routerLink="/customers" style="color: white ; background-color: peachpuff">Search customers</a></li>
+            <li><a class="dropdown-item fs-6 fw-bold " routerLink="/admin/new-customer" style="color: white ; background-color: peachpuff">New customer</a></li>
+            <li><a class="dropdown-item  fw-bold fs-6" routerLink="/admin/customers" style="color: white ; background-color: peachpuff">Search customers</a></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light fs-6" type="submit" style="background-color: salmon">Search</button>
-      </form>
+      <ul class="nav">
+        <li>
+          [Username]
+        </li>
+        <li>
+
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
